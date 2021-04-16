@@ -23,27 +23,27 @@ class App:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        self.__GButton_450 = tk.Button(root)
-        self.__GButton_450["bg"] = "#efefef"
+        self.LoadFileBotton = tk.Button(root)
+        self.LoadFileBotton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times', size=10)
-        self.__GButton_450["font"] = ft
-        self.__GButton_450["fg"] = "#000000"
-        self.__GButton_450["justify"] = "center"
-        self.__GButton_450["text"] = "Load File"
-        self.__GButton_450.place(x=70, y=50, width=70, height=25)
-        self.__GButton_450["command"] = self.__GButton_450_command
+        self.LoadFileBotton["font"] = ft
+        self.LoadFileBotton["fg"] = "#000000"
+        self.LoadFileBotton["justify"] = "center"
+        self.LoadFileBotton ["text"] = "Load File"
+        self.LoadFileBotton.place(x=70, y=50, width=70, height=25)
+        self.LoadFileBotton["command"] = self.LoadFileBotton 
 
-        self.__GListBox_563 = ttk.Combobox(root)
-        self.__GListBox_563.place(x=350, y=50, width=80, height=25)
-        self.__GListBox_563.bind("<<ComboboxSelected>>", self.__comboBoxCb)
+        self.SelectCityBox = ttk.Combobox(root)
+        self.SelectCityBox.place(x=350, y=50, width=80, height=25)
+        self.SelectCityBox.bind("<<ComboboxSelected>>", self.__comboBoxCb)
 
-        self.__GLabel_544 = tk.Label(root)
+        self.SelectCityLable = tk.Label(root)
         ft = tkFont.Font(family='Times', size=10)
-        self.__GLabel_544["font"] = ft
-        self.__GLabel_544["fg"] = "#333333"
-        self.__GLabel_544["justify"] = "center"
-        self.__GLabel_544["text"] = "Choose data file               Select city"
-        self.__GLabel_544.place(x=150, y=50, width=200, height=25)
+        self.SelectCityLable["font"] = ft
+        self.SelectCityLable["fg"] = "#333333"
+        self.SelectCityLable["justify"] = "center"
+        self.SelectCityLable["text"] = "Choose data file               Select city"
+        self.SelectCityLable.place(x=150, y=50, width=200, height=25)
 
         # these canvases are broken, fix them
         self.__GLineEdit_517 = tk.Canvas(root)
