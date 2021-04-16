@@ -12,7 +12,7 @@ from matplotlib.figure import Figure
 class App:
     def __init__(self, root):
         # setting title
-        root.title("undefined")
+        root.title("City Data")
         # setting window size
         width = 600
         height = 500
@@ -29,7 +29,7 @@ class App:
         self.__GButton_450["font"] = ft
         self.__GButton_450["fg"] = "#000000"
         self.__GButton_450["justify"] = "center"
-        self.__GButton_450["text"] = "Button"
+        self.__GButton_450["text"] = "Load File"
         self.__GButton_450.place(x=70, y=50, width=70, height=25)
         self.__GButton_450["command"] = self.__GButton_450_command
 
