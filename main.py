@@ -23,27 +23,27 @@ class App:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        self.LoadFileBotton = tk.Button(root)
-        self.LoadFileBotton["bg"] = "#efefef"
+        self.ButtonM = tk.Button(root)
+        self.ButtonM["bg"] = "#efefef"
         ft = tkFont.Font(family='Times', size=10)
-        self.LoadFileBotton["font"] = ft
-        self.LoadFileBotton["fg"] = "#000000"
-        self.LoadFileBotton["justify"] = "center"
-        self.LoadFileBotton ["text"] = "Load File"
-        self.LoadFileBotton.place(x=70, y=50, width=70, height=25)
-        self.LoadFileBotton["command"] = self.LoadFileBotton 
+        self.ButtonM["font"] = ft
+        self.ButtonM["fg"] = "#000000"
+        self.ButtonM["justify"] = "center"
+        self.ButtonM["text"] = "Load File"
+        self.ButtonM.place(x=70, y=50, width=70, height=25)
+        self.ButtonM["command"] = self.__GButton_450_command
 
-        self.SelectCityBox = ttk.Combobox(root)
-        self.SelectCityBox.place(x=350, y=50, width=80, height=25)
-        self.SelectCityBox.bind("<<ComboboxSelected>>", self.__comboBoxCb)
+        self.List01 = ttk.Combobox(root)
+        self.List01.place(x=350, y=50, width=80, height=25)
+        self.List01.bind("<<ComboboxSelected>>", self.__comboBoxCb)
 
-        self.SelectCityLable = tk.Label(root)
+        self.SelectCityLabel = tk.Label(root)
         ft = tkFont.Font(family='Times', size=10)
-        self.SelectCityLable["font"] = ft
-        self.SelectCityLable["fg"] = "#333333"
-        self.SelectCityLable["justify"] = "center"
-        self.SelectCityLable["text"] = "Choose data file               Select city"
-        self.SelectCityLable.place(x=150, y=50, width=200, height=25)
+        self.SelectCityLabel["font"] = ft
+        self.SelectCityLabel["fg"] = "#333333"
+        self.SelectCityLabel["justify"] = "center"
+        self.SelectCityLabel["text"] = "Choose data file               Select city"
+        self.SelectCityLabel.place(x=150, y=50, width=200, height=25)
 
         # these canvases are broken, fix them
         self.__GLineEdit_517 = tk.Canvas(root)
@@ -63,7 +63,7 @@ class App:
         try:
             self.__df = pd.read_csv(filePath)
             self.__df = self.__df.dropna()
-            self.__GListBox_563['values'] = list(self.__df['COMMUNITY AREA NAME'].unique())
+            self.List01['values'] = list(self.__df['COMMUNITY AREA NAME'].unique())
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
@@ -74,7 +74,7 @@ class App:
     # top right: bar chart, average THERM by month
     # bottom left and bottom right up to you
     def __comboBoxCb(self, event=None):
-        self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.__GListBox_563.get()]
+        self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.List01.get()]
         print(self.__subdf.head())
         fig1 = Figure(figsize=(self.__GLineEdit_392.winfo_width, self.__GLineEdit_392.winfo_height), dpi=100)
         ax1 = fig1.add_subplot(111)
