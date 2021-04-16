@@ -42,8 +42,8 @@ class App:
         self.__GLabel_544["font"] = ft
         self.__GLabel_544["fg"] = "#333333"
         self.__GLabel_544["justify"] = "center"
-        self.__GLabel_544["text"] = "label"
-        self.__GLabel_544.place(x=150, y=50, width=70, height=25)
+        self.__GLabel_544["text"] = "Choose data file"
+        self.__GLabel_544.place(x=150, y=50, width=100, height=25)
 
         # these canvases are broken, fix them
         self.__GLineEdit_517 = tk.Canvas(root)
