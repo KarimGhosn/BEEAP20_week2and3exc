@@ -12,7 +12,7 @@ from matplotlib.figure import Figure
 class App:
     def __init__(self, root):
         # setting title
-        root.title("undefined")
+        root.title("City Data")
         # setting window size
         width = 600
         height = 500
