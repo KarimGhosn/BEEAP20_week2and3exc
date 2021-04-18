@@ -23,6 +23,7 @@ class App:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
+        # Loading csv file button settings
         self.ButtonM = tk.Button(root)
         self.ButtonM["bg"] = "#efefef"
         ft = tkFont.Font(family='Times', size=10)
@@ -33,10 +34,12 @@ class App:
         self.ButtonM.place(x=70, y=50, width=70, height=25)
         self.ButtonM["command"] = self.__GButton_450_command
 
+        # ComboBox (List) settings
         self.List01 = ttk.Combobox(root)
-        self.List01.place(x=350, y=50, width=80, height=25)
+        self.List01.place(x=350, y=50, width=200, height=25)
         self.List01.bind("<<ComboboxSelected>>", self.__comboBoxCb)
 
+        # Label frame settings
         self.SelectCityLabel = tk.Label(root)
         ft = tkFont.Font(family='Times', size=10)
         self.SelectCityLabel["font"] = ft
@@ -45,18 +48,21 @@ class App:
         self.SelectCityLabel["text"] = "Choose data file               Select city"
         self.SelectCityLabel.place(x=150, y=50, width=200, height=25)
 
-        # these canvases are broken, fix them
-        self.__GLineEdit_517 = tk.Canvas(root)
-        self.__GLineEdit_517.place(x=50, y=130, width=234, height=140)
+        # Canvas
 
-        self.__GLineEdit_985 = tk.Canvas(root)
-        self.__GLineEdit_985.place(x=310, y=130, width=239, height=139)
+        self.Canvas1 = tk.Canvas(root)
+        self.Canvas1.place(x=60, y=100, width=234, height=140)
 
-        self.__GLineEdit_392 = tk.Canvas(root)
-        self.__GLineEdit_392.place(x=50, y=290, width=233, height=157)
+        self.Canvas2 = tk.Canvas(root)
+        self.Canvas2.place(x=300, y=100, width=239, height=139)
 
-        self.__GLineEdit_700 = tk.Canvas(root)
-        self.__GLineEdit_700.place(x=310, y=290, width=234, height=158)
+        self.Canvas3 = tk.Canvas(root)
+        self.Canvas3.place(x=60, y=300, width=233, height=157)
+
+        self.Canvas4 = tk.Canvas(root)
+        self.Canvas4.place(x=300, y=300, width=234, height=158)
+
+        
 
     def __GButton_450_command(self):
         filePath = fd.askopenfilename(initialdir='.')
@@ -73,12 +79,54 @@ class App:
     # top left: bar chart, average KWH by month
     # top right: bar chart, average THERM by month
     # bottom left and bottom right up to you
+    
     def __comboBoxCb(self, event=None):
-        self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.List01.get()]
-        print(self.__subdf.head())
-        fig1 = Figure(figsize=(self.__GLineEdit_392.winfo_width, self.__GLineEdit_392.winfo_height), dpi=100)
-        ax1 = fig1.add_subplot(111)
-        self.__subdf.iloc[:, range(self.__subdf.columns.get_loc['KWH JANUARY 2010'], 12)].mean().plot.bar(ax=ax1)
+        self.__SubDataFrame = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.List01.get()]
+
+        # Figure 1 configuration
+        FigureA = plt.figure(dpi=50)
+        AxisA = FigureA.add_subplot(111)
+        GraphA = FigureCanvasTkAgg(FigureA, root)
+        GraphA.get_tk_widget().place(x=40, y=120, width=250, height=180)                             # Creating the bar graph (Dimensions of the bar graph)
+        plt.xticks(rotation = 45)                         
+        CityIndex = (self.__SubDataFrame.columns.get_loc('KWH MAY 2010'))                                   # Starting first bar from January                                                                   # Having the names sideway under the bars on the x-axis
+        print(CityIndex)
+        DataFrame = self.__SubDataFrame.iloc[:, range(CityIndex, CityIndex+12)].mean().plot.bar(ax=AxisA)   # Moving from 1st month to 12th month gradually bar after the other
+        AxisA.set_title('Mean (KWH)')                                            
+
+        # Figure 2 configuration
+        FigureB = plt.figure(dpi=50)
+        AxisB = FigureB.add_subplot(111)
+        GraphB = FigureCanvasTkAgg(FigureB, root)
+        GraphB.get_tk_widget().place(x=300, y=120, width=250, height=180)
+        plt.xticks(rotation = 45)
+        CityIndex = (self.__SubDataFrame.columns.get_loc('THERM MARCH 2010'))
+        print(CityIndex)
+        DataFrame = self.__SubDataFrame.iloc[:, range(CityIndex, CityIndex+12)].mean().plot.bar(ax=AxisB)
+        AxisB.set_title('Mean (THERM)')
+
+        # Figure 3 configuration
+        FigureC = plt.figure(dpi=50)
+        AxisC = FigureC.add_subplot(111)
+        GraphC = FigureCanvasTkAgg(FigureC, root)
+        GraphC.get_tk_widget().place(x=40, y=315, width=250, height=180)
+        plt.xticks(rotation = 45)
+        CityIndex = (self.__SubDataFrame.columns.get_loc('KWH JANUARY 2010'))
+        print(CityIndex)
+        DataFrame = self.__SubDataFrame.iloc[:, range(CityIndex, CityIndex+12)].max().plot.bar(ax=AxisC)
+        AxisC.set_title('Max value (KWH)')
+
+        # Figure 4 configuration
+        FigureD = plt.figure(dpi=50)
+        AxisD = FigureD.add_subplot(111)
+        GraphD = FigureCanvasTkAgg(FigureD, root)
+        GraphD.get_tk_widget().place(x=300, y=315, width=250, height=180)
+        plt.xticks(rotation = 45)
+        CityIndex = (self.__SubDataFrame.columns.get_loc('THERM FEBRUARY 2010'))
+        print(CityIndex)
+        DataFrame = self.__SubDataFrame.iloc[:, range(CityIndex, CityIndex+12)].max().plot.bar(ax=AxisD)
+        AxisD.set_title('Max value (THERM)')
+
 
 
 if __name__ == "__main__":
