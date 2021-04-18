@@ -50,17 +50,17 @@ class App:
 
         # Canvas
 
-        self.Canvas1 = tk.Canvas(root)
-        self.Canvas1.place(x=60, y=100, width=234, height=140)
+        self.Canvas1 = tk.Canvas(root, height=160)
+        self.Canvas1.place(x=45, y=120, width=290)
 
-        self.Canvas2 = tk.Canvas(root)
-        self.Canvas2.place(x=300, y=100, width=239, height=139)
+        self.Canvas2 = tk.Canvas(root, height=160)
+        self.Canvas2.place(x=300, y=120, width=290)
 
-        self.Canvas3 = tk.Canvas(root)
-        self.Canvas3.place(x=60, y=300, width=233, height=157)
+        self.Canvas3 = tk.Canvas(root, height=160)
+        self.Canvas3.place(x=45, y=300, width=290)
 
-        self.Canvas4 = tk.Canvas(root)
-        self.Canvas4.place(x=300, y=300, width=234, height=158)
+        self.Canvas4 = tk.Canvas(root, height=160)
+        self.Canvas4.place(x=300, y=300, width=290)
 
         
 
@@ -73,18 +73,18 @@ class App:
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
-            print('nope')
+            print('Wrong one dude!')
 
-    # desired behavior: select one area, show 4 plots drawn on 4 canvases of that area: 
-    # top left: bar chart, average KWH by month
-    # top right: bar chart, average THERM by month
-    # bottom left and bottom right up to you
+
+
+ 
+    # comboBox
     
     def __comboBoxCb(self, event=None):
         self.__SubDataFrame = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.List01.get()]
 
         # Figure 1 configuration
-        FigureA = plt.figure(dpi=50)
+        FigureA = plt.figure(dpi=40)
         AxisA = FigureA.add_subplot(111)
         GraphA = FigureCanvasTkAgg(FigureA, root)
         GraphA.get_tk_widget().place(x=40, y=120, width=250, height=180)                             # Creating the bar graph (Dimensions of the bar graph)
@@ -95,7 +95,7 @@ class App:
         AxisA.set_title('Mean (KWH)')                                            
 
         # Figure 2 configuration
-        FigureB = plt.figure(dpi=50)
+        FigureB = plt.figure(dpi=40)
         AxisB = FigureB.add_subplot(111)
         GraphB = FigureCanvasTkAgg(FigureB, root)
         GraphB.get_tk_widget().place(x=300, y=120, width=250, height=180)
@@ -106,7 +106,7 @@ class App:
         AxisB.set_title('Mean (THERM)')
 
         # Figure 3 configuration
-        FigureC = plt.figure(dpi=50)
+        FigureC = plt.figure(dpi=40)
         AxisC = FigureC.add_subplot(111)
         GraphC = FigureCanvasTkAgg(FigureC, root)
         GraphC.get_tk_widget().place(x=40, y=315, width=250, height=180)
@@ -115,9 +115,10 @@ class App:
         print(CityIndex)
         DataFrame = self.__SubDataFrame.iloc[:, range(CityIndex, CityIndex+12)].max().plot.bar(ax=AxisC)
         AxisC.set_title('Max value (KWH)')
+        
 
         # Figure 4 configuration
-        FigureD = plt.figure(dpi=50)
+        FigureD = plt.figure(dpi=40)
         AxisD = FigureD.add_subplot(111)
         GraphD = FigureCanvasTkAgg(FigureD, root)
         GraphD.get_tk_widget().place(x=300, y=315, width=250, height=180)
@@ -126,6 +127,7 @@ class App:
         print(CityIndex)
         DataFrame = self.__SubDataFrame.iloc[:, range(CityIndex, CityIndex+12)].max().plot.bar(ax=AxisD)
         AxisD.set_title('Max value (THERM)')
+        
 
 
 
